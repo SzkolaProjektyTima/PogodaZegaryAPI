@@ -1,5 +1,6 @@
 using System.Text;
 using System.Globalization;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +16,9 @@ namespace Zadanie_rentry
 {
     public partial class MainWindow : Window
     {
+        private static readonly HttpClient httpClient = new HttpClient();
+        private int licznikPobran = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +40,31 @@ namespace Zadanie_rentry
             };
 
             timer.Start();
+        }
+
+        private async void WarszawaButton_Click(object sender, RoutedEventArgs e)
+        {
+            await PobierzPogodeAsync("https://api.open-meteo.com/v1/forecast?latitude=52.2298&longitude=21.0118&hourly=temperature_2m&forecast_days=1");
+        }
+
+        private async void GdanskButton_Click(object sender, RoutedEventArgs e)
+        {
+            await PobierzPogodeAsync("https://api.open-meteo.com/v1/forecast?latitude=54.3523&longitude=18.6491&hourly=temperature_2m&forecast_days=1");
+        }
+
+        private async Task PobierzPogodeAsync(string adresZapytania)
+        {
+            StatusTextBlock.Text = "Pobieram...";
+
+            string json = await httpClient.GetStringAsync(adresZapytania);
+            WynikTextBlock.Text = json;
+            licznikPobran++;
+
+            //wyswietlanie + pogrubienie
+            StatusTextBlock.Inlines.Clear();
+            StatusTextBlock.Inlines.Add(new Bold(new Run($"Pobrano {licznikPobran} razy")));
+            StatusTextBlock.Inlines.Add(new Run($" o {DateTime.Now:HH:mm:ss}"));
+
         }
     }
 }

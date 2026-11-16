@@ -8,21 +8,65 @@
         Title="Zegar" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <!-- pierwszy wiersz zajmuje wolne miejsce -->
+            <RowDefinition Height="*" />
+            <!-- drugi wiersz zawiera przyciski -->
+            <RowDefinition Height="Auto" />
+            <!-- trzeci wiersz zawiera pole wyniku -->
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="GodzinaTextBlock"
-           Text="00:00:00"
-           FontSize="24"
-                   />
-        
-        <TextBlock x:Name="DataTextBlock" Grid.Row="1" 
-                   
-                   />
+        <!-- zegar i data sa w pierwszym row -->
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Name="GodzinaTextBlock"
+                       Text="00:00:00"
+                       FontSize="24"
+                       TextAlignment="Center" />
 
-        <TextBlock x:Name="DataPelnaTextBlock" Grid.Row="2"
-                   />
+            <TextBlock x:Name="DataTextBlock"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="DataPelnaTextBlock"
+                       TextAlignment="Center" />
+        </StackPanel>
+
+        <!-- przyciski sa w drugim wierszu, nad polem wyniku -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,12">
+            
+            <Button Content="Pogoda: Warszawa"
+                    Margin="4"
+                    Padding="12,6"
+                    Click="WarszawaButton_Click" />
+            
+            <Button Content="Pogoda: Gdansk"
+                    Margin="4"
+                    Padding="12,6"
+                    Click="GdanskButton_Click" />
+            
+        </StackPanel>
+
+        <!-- json jest w trzecim wierszu i ma stala wysokosc -->
+        <Border Grid.Row="2"
+                Height="120"
+                Margin="12,0,12,12"
+                VerticalAlignment="Top"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="4">
+            <StackPanel>
+                <ScrollViewer Height="88"
+                              VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="WynikTextBlock"
+                               Margin="8"
+                               TextWrapping="Wrap" />
+                </ScrollViewer>
+                <TextBlock x:Name="StatusTextBlock"
+                           Margin="8,0"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
