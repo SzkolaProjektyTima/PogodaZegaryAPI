@@ -28,9 +28,9 @@
 
             <TextBlock x:Name="DataPelnaTextBlock"
                        TextAlignment="Center" />
+
         </StackPanel>
 
-        <!-- przyciski sa w drugim wierszu, nad polem wyniku -->
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
@@ -48,7 +48,6 @@
             
         </StackPanel>
 
-        <!-- json jest w trzecim wierszu i ma stala wysokosc -->
         <Border Grid.Row="2"
                 Height="120"
                 Margin="12,0,12,12"
@@ -59,9 +58,11 @@
             <StackPanel>
                 <ScrollViewer Height="88"
                               VerticalScrollBarVisibility="Auto">
-                    <TextBlock x:Name="WynikTextBlock"
-                               Margin="8"
-                               TextWrapping="Wrap" />
+                    <StackPanel Margin="8">
+                        <TextBlock x:Name="LokalizacjaTextBlock" Text="Lokalizacja: =" />
+                        <TextBlock x:Name="TemperaturaTextBlock" Text="Temperatura: =" />
+                        <TextBlock x:Name="PredkoscWiatruTextBlock" Text="Prędkość wiatru: =" />
+                    </StackPanel>
                 </ScrollViewer>
                 <TextBlock x:Name="StatusTextBlock"
                            Margin="8,0"
